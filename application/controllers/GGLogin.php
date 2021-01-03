@@ -18,7 +18,7 @@ class GGLogin extends CI_Controller
 	function index()
 	{
 		//loads the model and controller
-		$this->load->model('userModel');
+		$this->load->model('UserService');
 //		$this->load->library('../controllers/GGHome');
 		//sets the validation rules
 		$user_validation_rules = array(
@@ -55,7 +55,7 @@ class GGLogin extends CI_Controller
 			if ($this->input->post('Login'))
 			{
 				// checks if the user is valid
-				if ($this->userModel->CheckValidUser() == true)
+				if ($this->UserService->CheckValidUser() == true)
 				{
 					$this->session->set_userdata('loggedIn', true);
 					redirect('GGHome/index');
