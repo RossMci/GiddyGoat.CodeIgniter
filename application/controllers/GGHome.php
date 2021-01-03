@@ -61,8 +61,19 @@ class GGHome extends CI_Controller
 
 	function fabrics()
 	{
+		$this->load->model('FabricRepository');
+
+        $data = array(
+            "name" => "test",
+            'fabrics' => $this->FabricRepository->getFabrics()
+        );
+
+      //  $contentData['mycontent']= "<h1>abc</h1>";//.$this->load->view('content/fabrics_content', $data, True)
+
+        //var_dump($contentData);
+        //$this->load->view('fabrics', $contentData);
 		$view_data = array(
-			'content' => $this->load->view('content/fabrics_content', null, True)
+			'content' => $this->load->view('content/fabrics_content', $data, True)
 //			'Classes'=>$this->load->view('Classes.php',null,True)
 		);
 		$this->load->view('fabrics', $view_data);
@@ -178,6 +189,11 @@ class GGHome extends CI_Controller
 	}
 	
 	function displayFabrics(){
+            $view_data = array(
+			'content' => $this->load->view('content/fabrics_content', null, True)
+//			'Classes'=>$this->load->view('Classes.php',null,True)
+		);
+		$this->load->view('fabrics', $view_data);
 		$data['display_block'] = $this->AddressBook->displayFab();
 		$this->fabrics($data);
 	}

@@ -18,10 +18,20 @@ A fabric is a material made through weaving, knitting, spreading, felting, stitc
 	  </section>
     </div>
     <div class="content_section">
-      <h2> Fabrics</h2>
-	  <table>
-		  <?php  echo $displayBlock?>
-	  </table>
+	  <h2> Fabrics</h2>
+	  
 
+	  <!-- <table>
+		  <?php // echo $displayBlock?>
+	  </table> -->
+	  <?php
+	  echo $name;
+	  foreach($fabrics as $fabric)
+	  {
+		  var_dump($fabric);
+		  echo "<br/>";
+
+	  }
+?>
   </div>
 </div>

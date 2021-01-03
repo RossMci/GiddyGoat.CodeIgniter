@@ -11,6 +11,9 @@ $script_url = base_url()."assets/scripts/";
 
 <?php //include('partials/aside.php'); ?>
 <div id="wrapper">
-<?php echo $content ?>
+<?php 
+//var_dump($mycontent);
+echo $content;
+ ?> 
 </div>
 <?php include('partials/footer_view.php'); ?>
