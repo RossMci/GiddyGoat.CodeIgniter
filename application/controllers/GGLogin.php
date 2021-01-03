@@ -3,23 +3,23 @@
 class GGLogin extends CI_Controller
 {
 
-	function __construct()
-	{
-		parent::__construct();
-		$this->load->library('../controllers/GGHome');
-
-//		if ($this->session->userdata('loggedIn'))
-//		{
-//			redirect('GGHome/index');
-//		}
-	}
+//	function __construct()
+//	{
+//		parent::__construct();
+//		$this->load->library('../controllers/GGHome');
+//
+////		if ($this->session->userdata('loggedIn'))
+////		{
+////			redirect('GGHome/index');
+////		}
+//	}
 
 	// function checks the member is logined in  and process login
 	function index()
 	{
 		//loads the model and controller
 		$this->load->model('userModel');
-		$this->load->library('../controllers/GGHome');
+//		$this->load->library('../controllers/GGHome');
 		//sets the validation rules
 		$user_validation_rules = array(
 			array('field' => 'password',
@@ -71,7 +71,7 @@ class GGLogin extends CI_Controller
 	// destorys the session and logout user 
 	function logout()
 	{
-		$this->load->library('../controllers/GGHome');
+//		$this->load->library('../controllers/GGHome');
 		// ensets the loggedin value
 		unset($_SESSION['loggedIn']);
 		$this->session->sess_destroy();

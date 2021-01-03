@@ -3,17 +3,17 @@
 class GGHome extends CI_Controller
 {
 
-	function __construct()
-	{
-		parent::__construct();
-
-                $this->load->library('form_validation');
-//		$this->form_validation->lo
-//			if ($this->session->userdata('loggedIn'))
-//		{
-//			redirect('GGHome/index');
-//		}
-	}
+//	function __construct()
+//	{
+//		parent::__construct();
+//
+////                $this->load->library('form_validation');
+////		$this->form_validation->lo
+////			if ($this->session->userdata('loggedIn'))
+////		{
+////			redirect('GGHome/index');
+////		}
+//	}
 
 //	    // manges the user acess 
 //	public function UserHasAccess()
