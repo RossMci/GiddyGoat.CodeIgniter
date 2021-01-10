@@ -2,7 +2,7 @@
 
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class Fabrics1 extends CI_Controller
+class Fabrics extends CI_Controller
 {
 
     public function index()
@@ -10,13 +10,16 @@ class Fabrics1 extends CI_Controller
         $this->load->model('FabricRepository');
 
         $data = array(
-            "name" => "test",
             'fabrics' => $this->FabricRepository->getFabrics()
         );
+        
+         $contentData = array(
+          'content' => $this->load->view('content/fabrics_content', $data, True)
+        );
 
-        $contentData['mycontent']= "<h1>abc</h1>";//.$this->load->view('content/fabrics_content', $data, True)
+//        $contentData['content']=$this->load->view('content/fabrics_content', $data, True);
 
-        var_dump($contentData);
+//        var_dump($contentData);
         $this->load->view('fabrics', $contentData);
     }
 }

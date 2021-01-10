@@ -25,9 +25,13 @@ A fabric is a material made through weaving, knitting, spreading, felting, stitc
 		  <?php // echo $displayBlock?>
 	  </table> -->
 	  <?php
-	  echo $name;
 	  foreach($fabrics as $fabric)
 	  {
+                   echo 'fabric instance';
+                     echo "<br/>";
+//                   echo '<img src = "' . $this->config->item("image_url") . 'courses/null_course.jpg" alt ="'.$course['title'].'">';
+                   echo '<img src= . base_url() . $row->image  >';
+                     echo "<br/>";
 		  var_dump($fabric);
 		  echo "<br/>";
 
