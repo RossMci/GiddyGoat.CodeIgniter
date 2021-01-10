@@ -8,9 +8,9 @@ class Fabrics extends CI_Controller
     public function index()
     {
         $this->load->model('FabricRepository');
-
         $data = array(
-            'fabrics' => $this->FabricRepository->getFabrics()
+            'fabrics' => $this->FabricRepository->getFabrics(),
+             
         );
         
          $contentData = array(

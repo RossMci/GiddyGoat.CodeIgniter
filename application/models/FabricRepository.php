@@ -5,13 +5,14 @@ class FabricRepository extends CI_Model {
     protected $table = 'fabric';
 
     function getFabrics() {
+        $displayBlock = "";
         $commandText = "CALL getFabrics()";
 //        $query = $this->db->get($this->table);
         $query = $this->db->query($commandText);
         $row = $query->row();
         if (isset($row)) {
-            $config['image_library'] = 'gd2'; //image library
-            $config['source_image'] = "./" . $row->image.".jpg" ; //the image
+            $config['image_library'] = 'GD2'; //image library
+            $config['source_image'] = $row->image;  //the image
 
 
 
@@ -24,8 +25,10 @@ class FabricRepository extends CI_Model {
             if (!$this->image_lib->resize()) {
                 echo $this->image_lib->display_errors();
             }
+            $displayBlock .= "<img src=" . base_url() .$row->image .">";
             
-            return $query->result();
+//            return $query->result();
+            return $displayBlock;
         }
     }
 
