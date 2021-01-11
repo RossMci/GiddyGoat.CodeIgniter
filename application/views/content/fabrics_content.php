@@ -36,10 +36,12 @@ $base_url = base_url();
                 <th>c</th>
             </tr>
             <tr>
-                <?php echo $displayBlock; ?>
+                <?php
+                echo $imageTable;
+                ?>
             </tr>
+
             <tr>
-                <?php echo $displayBlock2; ?>
             </tr>
         </table>
     </div>

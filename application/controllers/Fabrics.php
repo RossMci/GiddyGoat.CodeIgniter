@@ -4,57 +4,60 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Fabrics extends CI_Controller
 {
-
-
-    
-
-    public function index()
+    public function generateFabricThumbnails($fabrics)
     {
-        $this->load->model('FabricRepository');
-        $fabrics = $this->FabricRepository->getFabrics();
-
-        $errors = "";
-        $displayBlock = "";
-        $displayBlock2 = "";
-
+        $this->load->library('image_lib');
         foreach ($fabrics as $fabric) {
-
-            $extension = strrchr($fabric->image , '.');
-            $name = substr($fabric->image , 0, -strlen($extension));
-            $thumbnailPath = $name."_Thumb".$extension;
-
             $imageConfig = array(
                 "image_library" => 'GD2', //image library
                 "source_image" => './' . $fabric->image,
-                //"new_image" => './assets/images/fabrics/thumbnail/',
                 "create_thumb" => TRUE,
                 "maintain_ratio" => TRUE,
                 "width" => 150,
                 "height" => 150
             );
-
-
-            $this->load->library('image_lib', $imageConfig);
             $this->image_lib->initialize($imageConfig);
+            $this->image_lib->resize();
+            $this->image_lib->clear();
+        }
+        return $this->getFabricThumbnailPaths($fabrics);
+    }
+    public function getFabricThumbnailPaths($fabrics)
+    {
+        $thumbnailPaths = array();
+        foreach ($fabrics as $fabric) {
+            $extension = strrchr($fabric->image, '.');
+            $name = substr($fabric->image, 0, -strlen($extension));
+            $thumbnailPath = $name . "_Thumb" . $extension;
+            $thumbnailPaths[] =  $thumbnailPath; 
+        }
+        return $thumbnailPaths;
+    }
 
-            if (!$this->image_lib->resize()) {
-                $errors .= $this->image_lib->display_errors();
-            }
+    public function index()
+    {
+        $this->load->model('FabricRepository');
 
-            $displayBlock .= '<td><img  src="' . base_url() . $thumbnailPath . '"></td>' . $errors;
-            $displayBlock2 .= "<td>" . $fabric->name . "</td>\n";
+        $fabrics = $this->FabricRepository->getFabrics();
+        $thumbnailPaths = $this->generateFabricThumbnails($fabrics);
+
+        $images = array();
+        for ($index = 0; $index < count($thumbnailPaths); $index++) {
+            $image = '<img  src="' . base_url() . $thumbnailPaths[$index] . '" /><br/>' . $fabrics[$index]->name;
+            $images[] = $image;
         }
 
+        $this->load->library('table');
+        $new_list = $this->table->make_columns($images, 3);
+        $imageTable = $this->table->generate($new_list);
 
         $data = array(
-            'displayBlock' => $displayBlock,
-            'displayBlock2' => $displayBlock2
+            "imageTable" => $imageTable,
         );
 
         $contentData = array(
             'content' => $this->load->view('content/fabrics_content', $data, True)
         );
-        $this->image_lib->clear();
         $this->load->view('fabrics', $contentData);
     }
 }
