@@ -36,7 +36,7 @@ class Fabrics extends CI_Controller {
             }
 
                 $displayBlock .= "<td><img  src=" . base_url() . $imageFilePath . "_thumb.jpg></td>\n"; //.$errors;
-                  $displayBlock2 .= "<td>" . $fabric->description . "</td>\n";
+                  $displayBlock2 .= "<td>" . $fabric->name . "</td>\n";
         }
    
 
