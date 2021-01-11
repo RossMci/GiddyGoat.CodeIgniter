@@ -20,9 +20,22 @@ $base_url = base_url();
     </div>
     <div class="content_section">
         <h2> Fabrics</h2>
-
-
-        <?php
+        <form action="<?php echo base_url(); ?>index.php/GGHome/Addmember" method="post">
+            <select name="fabric_type">
+                <option value="volvo">Volvo</option>
+                <option value="saab">Saab</option>
+                <option value="mercedes">Mercedes</option>
+                <option value="audi">Audi</option>
+            </select>
+            <input type="submit" name="submit" value="submit" alt="submit" id="submit_btn" />
+        </form>
+        <table>
+            <tr>
+            <th>d</th>
+            <th>d</th>
+            </tr>
+            <tr>
+            <?php
 //	  foreach($fabrics as $fabric)
 //	  {
 //                     echo "<br/>";
@@ -32,7 +45,14 @@ $base_url = base_url();
 //		  echo "<br/>";
 //
 //	  }
+            
             echo $displayBlock;
-        ?>
+            ?>
+            </tr>
+            
+            <tr>
+                <?php   echo $displayBlock2; ?>
+            </tr>
+        </table>
     </div>
 </div>
