@@ -22,23 +22,17 @@ $base_url = base_url();
         <h2> Fabrics</h2>
 
 
-          <!-- <table>
-        <?php // echo $displayBlock ?>
-          </table> -->
         <?php
 //	  foreach($fabrics as $fabric)
 //	  {
-//                   echo 'fabric instance';
 //                     echo "<br/>";
 ////                   echo '<img src = "' . $this->config->item("image_url") . 'courses/null_course.jpg" alt ="'.$course['title'].'">';
 //                   echo '"<img src=" . base_url() . "images/" . $row->item_image . ">"';
 //                     echo "<br/>";
-////		  var_dump($fabric);
 //		  echo "<br/>";
 //
 //	  }
             echo $displayBlock;
         ?>
-        <img src="<?php echo site_url('../assets/images/fabrics/fabric5.jpg'); ?>" />
     </div>
 </div>

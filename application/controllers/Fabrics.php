@@ -8,20 +8,45 @@ class Fabrics extends CI_Controller
     public function index()
     {
         $this->load->model('FabricRepository');
+        $fabrics = $this->FabricRepository->getFabrics();
+
+        $errors="";
+        $displayBlock = "";
+        foreach ($fabrics as $fabric) {
+
+            $imageConfig = array(
+                "image_library" => 'GD2', //image library
+                "source_image" => './' . $fabric->image,
+                "new_image" => './assets/images/fabrics/thumbnail/'. basename($fabric->image),
+                "create_thumb" => TRUE,
+                "maintain_ratio" => TRUE,
+                "width" => 75,
+                "height"=>50
+            );
+            	
+
+            $this->load->library('image_lib', $imageConfig);
+            $this->image_lib->initialize($imageConfig);
+          
+            $imageFilePath= $imageConfig["new_image"];
+            if (!$this->image_lib->resize()) {
+                $errors .= "<p>".$imageConfig["new_image"]."</p>\n";
+                $errors .= $this->image_lib->display_errors();
+                $imageFilePath=$imageConfig["source_image"];
+            }
+            $displayBlock .= '<img  src="' . base_url() . $imageFilePath . '" />';//.$errors;
+        }
+
         $data = array(
-            'fabrics' => $this->FabricRepository->getFabrics(),
-             
-        );
-        
-         $contentData = array(
-          'content' => $this->load->view('content/fabrics_content', $data, True)
+            'displayBlock' => $displayBlock
         );
 
-//        $contentData['content']=$this->load->view('content/fabrics_content', $data, True);
-
-//        var_dump($contentData);
+        $contentData = array(
+            'content' => $this->load->view('content/fabrics_content', $data, True)
+        );
+        $this->image_lib->clear();
         $this->load->view('fabrics', $contentData);
     }
 }
-        
-    /* End of file  Frabrics.php */
+
+/* End of file  Frabrics.php */
