@@ -4,13 +4,6 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Fabrics extends CI_Controller
 {
-
-    public function getFabricType(){
-        $fabricType['Types'] = $this->fabricRepository->getFabricsByType();
-        $data=$fabricType;
-        $this->load->view('fabrics', $data);
-
-    }
     public function generateFabricThumbnails($fabrics)
     {
         $this->load->library('image_lib');
@@ -41,16 +34,10 @@ class Fabrics extends CI_Controller
         return $thumbnailPaths;
     }
 
-
-    public function index()
+    public function getPaginationConfig($total_rows, $per_page)
     {
-        $this->load->model('FabricRepository');
-        $this->load->library('pagination');
-        $this->load->library('table');
-        $totalRec = $this->FabricRepository->record_count();
-
         $config['base_url'] = base_url() . "index.php/Fabrics/index";
-        $config['total_rows'] = $totalRec;
+        $config['total_rows'] = $total_rows;
         $config['per_page'] = 3;
         $config['full_tag_open'] = '<ul class="pagination">';
         $config['full_tag_close'] = '</ul>';
@@ -75,15 +62,50 @@ class Fabrics extends CI_Controller
 
         $config['num_tag_open'] = '<li class="page">';
         $config['num_tag_close'] = '</li>';
+        $config['base_url'] = base_url() . "index.php/Fabrics/index";
+        $config['total_rows'] = $total_rows;
+        $config['per_page'] = $per_page;
+        $config['full_tag_open'] = '<ul class="pagination">';
+        $config['full_tag_close'] = '</ul>';
+        $config['first_link'] = '« First';
+        $config['first_tag_open'] = '<li class="prev page">';
+        $config['first_tag_close'] = '</li>';
 
-        $this->pagination->initialize($config);
+        $config['last_link'] = 'Last »';
+        $config['last_tag_open'] = '<li class="next page">';
+        $config['last_tag_close'] = '</li>';
+
+        $config['next_link'] = 'Next →';
+        $config['next_tag_open'] = '<li class="next page">';
+        $config['next_tag_close'] = '</li>';
+
+        $config['prev_link'] = '← Previous';
+        $config['prev_tag_open'] = '<li class="prev page">';
+        $config['prev_tag_close'] = '</li>';
+
+        $config['cur_tag_open'] = '<li class="active"><a href="">';
+        $config['cur_tag_close'] = '</a></li>';
+
+        $config['num_tag_open'] = '<li class="page">';
+        $config['num_tag_close'] = '</li>';
+
+        return $config;
+    }
+
+    public function index()
+    {
+        $this->load->model('FabricRepository');
+        $totalRec = $this->FabricRepository->record_count();
+
+        $this->load->library('pagination');
+        $per_page=3;
+        $this->pagination->initialize($this->getPaginationConfig($totalRec, $per_page));
         $page = $this->uri->segment(3);
         $offset = !$page ? 0 : $page;
         
-        //$datapage['page'] = $this->FabricRepository->getFabrics($config['per_page'], $offset);
+        $fabrics = $this->FabricRepository->getFabricRange($offset, $per_page);
 
-         $fabrics = $this->FabricRepository->getFabrics($config['per_page'],$offset);
-        //$fabrics =$datapage;
+         
         $thumbnailPaths = $this->generateFabricThumbnails($fabrics);
 
         $images = array();
