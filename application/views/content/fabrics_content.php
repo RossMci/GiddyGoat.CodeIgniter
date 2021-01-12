@@ -46,3 +46,4 @@ $base_url = base_url();
         </table>
     </div>
 </div>
+<?php echo "</br>".$this->pagination->create_links(); ?>

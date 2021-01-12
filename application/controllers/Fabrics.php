@@ -73,9 +73,10 @@ class Fabrics extends CI_Controller
         $page = $this->uri->segment(3);
         $offset = !$page ? 0 : $page;
         
-        $data['page'] = $this->FabricRepository->getFabrics()($config['per_page'], $offset);
+        $datapage['page'] = $this->FabricRepository->getFabrics($config['per_page'], $offset);
 
-        $fabrics = $this->FabricRepository->getFabrics();
+        // $fabrics = $this->FabricRepository->getFabrics(($config['per_page'] $offset);
+        $fabrics =$datapage['page'] ;
         $thumbnailPaths = $this->generateFabricThumbnails($fabrics);
 
         $images = array();
@@ -84,12 +85,14 @@ class Fabrics extends CI_Controller
             $images[] = $image;
         }
 
-        $this->load->library('table');
-        $new_list = $this->table->make_columns($images, 3);
-        $imageTable = $this->table->generate($new_list);
+       // $this->load->library('table');
+        //$new_list = $this->table->make_columns($images, 3);
+       // $imageTable = $this->table->generate($new_list);
+       $imageTable=$images;
 
         $data = array(
             "imageTable" => $imageTable,
+
         );
 
         $contentData = array(
