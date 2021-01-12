@@ -4,6 +4,13 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Fabrics extends CI_Controller
 {
+
+    public function getFabricType(){
+        $fabricType['Types'] = $this->fabricRepository->getFabricsByType();
+        $data=$fabricType;
+        $this->load->view('fabrics', $data);
+
+    }
     public function generateFabricThumbnails($fabrics)
     {
         $this->load->library('image_lib');
@@ -13,8 +20,8 @@ class Fabrics extends CI_Controller
                 "source_image" => './' . $fabric->image,
                 "create_thumb" => TRUE,
                 "maintain_ratio" => TRUE,
-                "width" => 150,
-                "height" => 150
+                "width" => 250,
+                "height" => 250
             );
             $this->image_lib->initialize($imageConfig);
             $this->image_lib->resize();
@@ -73,22 +80,22 @@ class Fabrics extends CI_Controller
         $page = $this->uri->segment(3);
         $offset = !$page ? 0 : $page;
         
-        $datapage['page'] = $this->FabricRepository->getFabrics($config['per_page'], $offset);
+        //$datapage['page'] = $this->FabricRepository->getFabrics($config['per_page'], $offset);
 
-        // $fabrics = $this->FabricRepository->getFabrics(($config['per_page'] $offset);
-        $fabrics =$datapage['page'] ;
+         $fabrics = $this->FabricRepository->getFabrics($config['per_page'],$offset);
+        //$fabrics =$datapage;
         $thumbnailPaths = $this->generateFabricThumbnails($fabrics);
 
         $images = array();
         for ($index = 0; $index < count($thumbnailPaths); $index++) {
-            $image = '<img  src="' . base_url() . $thumbnailPaths[$index] . '" /><br/>' . $fabrics[$index]->name;
+            $image = '<img  src="' . base_url() . $thumbnailPaths[$index] . '" /><br><a href="">' . $fabrics[$index]->name.'<a/>';
             $images[] = $image;
         }
 
-       // $this->load->library('table');
-        //$new_list = $this->table->make_columns($images, 3);
-       // $imageTable = $this->table->generate($new_list);
-       $imageTable=$images;
+        $this->load->library('table');
+        $new_list = $this->table->make_columns($images, 3);
+        $imageTable = $this->table->generate($new_list);
+      // $imageTable=$images;
 
         $data = array(
             "imageTable" => $imageTable,
