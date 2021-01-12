@@ -30,3 +30,4 @@ user_guide_src/cilexer/pycilexer.egg-info/*
 /tests/tests/
 /tests/results/
 assets/images/fabrics/thumbnail/
+assets/images/fabrics/*_thumb.jpg
