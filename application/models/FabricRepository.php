@@ -2,8 +2,7 @@
 
 class FabricRepository extends CI_Model
 {
-
-    protected $table = 'fabric';
+    protected $table = 'fabric'; 
 
     public function record_count()
     {
@@ -22,6 +21,30 @@ class FabricRepository extends CI_Model
         $query = $this->db->get('fabric');
         return $query->result();
     }
+
+    function getFabricsByType($fabricTypeId)
+    {
+        $this->db->select("name, image");
+        $this->db->where("Fabric_Type_Id", $fabricTypeId);
+        $query = $this->db->get('fabric');
+        return $query->result();
+    }
+    
+    function getFabricRangeByType($start, $limit, $fabricTypeId)
+    {
+        $this->db->limit($limit, $start);
+        $this->db->select("name, image");
+        $this->db->where("Fabric_Type_Id", $fabricTypeId);
+        $query = $this->db->get('fabric');
+        return $query->result();
+    }
+
+    public function getFabricTypes()
+    {
+        $commandText = "Call getFabricTypes()";
+        $query = $this->db->query($commandText);
+        return $query->result();
+    }
     function getFabricById($fabricId)
     {
         $commandText = "CALL GetFabricById(?)";
@@ -31,25 +54,5 @@ class FabricRepository extends CI_Model
         );
         $query = $this->db->query($commandText, $commandParameters);
         return ($query->num_rows() > 0) ? $query->result()[0] : NULL;
-    }
-
-    function getFabricsByType($fabricType)
-    {
-        $fabricdisplay = "";
-        $commandText = "CALL GetFabricsByType(?)";
-
-        $commandParameters = array(
-            'fabricType' => $fabricType
-        );
-        $query = $this->db->query($commandText, $commandParameters);
-        if ($query->num_rows() > 0) {
-            foreach ($query->result_array() as $type) {  //For each entry    
-                $id = $type['master_id'];
-                $display_name = stripslashes($type['display_name']);
-                //Sets the value and the text to display for the select list on the view 
-                $fabricdisplay .= "<option value=\"" . $id . "\">" . $display_name . "</option>";
-            }
-            //return $query->result();
-        }
     }
 }
