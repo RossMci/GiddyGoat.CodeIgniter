@@ -2,7 +2,7 @@
 
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class Fabrics extends CI_Controller
+class Classes extends CI_Controller
 {
     public function generateFabricThumbnails($fabrics)
     {
@@ -20,18 +20,15 @@ class Fabrics extends CI_Controller
             $this->image_lib->resize();
             $this->image_lib->clear();
         }
-        return $this->getFabricThumbnailPaths($fabrics);
+        return $this->getFabriccalandarData($fabrics);
     }
-    public function getFabricThumbnailPaths($fabrics)
+    public function getCalanderClasses($classes)
     {
-        $thumbnailPaths = array();
-        foreach ($fabrics as $fabric) {
-            $extension = strrchr($fabric->image, '.');
-            $name = substr($fabric->image, 0, -strlen($extension));
-            $thumbnailPath = $name . "_Thumb" . $extension;
-            $thumbnailPaths[] =  $thumbnailPath;
+        $calandarData = array();
+        foreach ($classes as $class) {
+            $calandarData[dayOfMonth($class->dateOfClass)] =  base_url()+ "index.php/Classes/"+$class->id;//TODO: find dayofMonth function link too ckas
         }
-        return $thumbnailPaths;
+        return $calandarData;
     }
 
     public function getPaginationConfig($total_rows, $per_page, $pageUri)
@@ -158,11 +155,11 @@ class Fabrics extends CI_Controller
         $fabrics = $this->FabricRepository->getFabricRangeByType($offset, $per_page, $fabricTypeId);
 
 
-        $thumbnailPaths = $this->generateFabricThumbnails($fabrics);
+        $calandarData = $this->generateFabricThumbnails($fabrics);
 
         $images = array();
-        for ($index = 0; $index < count($thumbnailPaths); $index++) {
-            $image = '<img  src="' . base_url() . $thumbnailPaths[$index] . '" /><br><a href="">' . $fabrics[$index]->name . '<a/>';
+        for ($index = 0; $index < count($calandarData); $index++) {
+            $image = '<img  src="' . base_url() . $calandarData[$index] . '" /><br><a href="">' . $fabrics[$index]->name . '<a/>';
             $images[] = $image;
         }
 
@@ -196,11 +193,11 @@ class Fabrics extends CI_Controller
         $fabrics = $this->FabricRepository->getFabricRange($offset, $per_page);
 
 
-        $thumbnailPaths = $this->generateFabricThumbnails($fabrics);
+        $calandarData = $this->generateFabricThumbnails($fabrics);
 
         $images = array();
-        for ($index = 0; $index < count($thumbnailPaths); $index++) {
-            $image = '<img  src="' . base_url() . $thumbnailPaths[$index] . '" /><br><a href="">' . $fabrics[$index]->name . '<a/>';
+        for ($index = 0; $index < count($calandarData); $index++) {
+            $image = '<img  src="' . base_url() . $calandarData[$index] . '" /><br><a href="">' . $fabrics[$index]->name . '<a/>';
             $images[] = $image;
         }
 

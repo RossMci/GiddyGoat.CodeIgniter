@@ -19,32 +19,18 @@ $base_url = base_url();
         </section>
     </div>
     <div class="content_section">
-        <h2> Fabrics</h2>
-        <form action="<?php echo base_url(); ?>index.php/GGHome/Addmember" method="post">
-            <select name="fabric_type">
-                <option value="volvo">Volvo</option>
-                <option value="saab">Saab</option>
-                <option value="mercedes">Mercedes</option>
-                <option value="audi">Audi</option>
+        <a href="<?php echo base_url(); ?>index.php/Fabrics">
+            <h2> Fabrics</h2>
+        </a>
+        <form action="<?php echo base_url(); ?>index.php/Fabrics/serach" method="get">
+            <select name="fabricTypeId">
+                <?php foreach ($fabricTypes as $fabricType) {
+                    echo "<option value=\"" . $fabricType->fabric_type_id . "\">" . stripslashes($fabricType->fabricTypeName) . "</option>";
+                } ?>
             </select>
-            <input type="submit" name="submit" value="submit" alt="submit" id="submit_btn" />
+            <input type="submit" name="submit" value="Search" alt="submit" id="submit_btn" />
         </form>
-        <table>
-            <tr>
-                <th>a</th>
-                <th>b</th>
-                <th>c</th>
-            </tr>
-            <tr>
-                <?php
-                echo $imageTable;
-                ?>
-            </tr>
-
-            <tr>
-            </tr>
-        </table>
-        <br />
+        <?php echo $imageTable ?>
         <?php echo $this->pagination->create_links(); ?>
     </div>
 </div>
