@@ -36,7 +36,7 @@ window.addEvents({
   <div id="menu">
     <ul>
       <li><a href="<?php echo site_url('GGHome/index');?>" class="current"><span></span>Home</a></li>
-      <li><a href="<?php echo site_url('GGHome/ClassIndex');?>"><span></span>Classes</a></li>
+      <li><a href="<?php echo site_url('Classes/index');?>"><span></span>Classes</a></li>
       <li><a href="<?php echo site_url('Fabrics/index');?>"><span></span>Fabrics</a></li>
       <li><a href="<?php echo site_url('GGHome/notions');?>"><span></span>Notions</a></li>
       <li><a href="<?php echo site_url('GGHome/gallery');?>"><span></span>Gallery</a></li>
