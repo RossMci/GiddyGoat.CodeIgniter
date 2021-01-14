@@ -15,10 +15,17 @@ class ClassRepository extends CI_Model
         return $query->result();
     }
 
-    function getClassesByYearMonth($year, $month)
+    function getClassesByDate($date)
     {
         $this->db->select("*");//TODO: Check this
-        $this->db->where("dateOfClass", array($year, $month));//TODO:figure out // mysql function for date range
+        $this->db->where('dateOfClass', date('Y-m-d', strtotime($date)));
+        $query = $this->db->get($this->table);
+        return $query->result();
+    }
+    function getClassesBetweenDates($startDate, $endDate)
+    {
+        $this->db->select("*");//TODO: Check this
+        $this->db->where('dateOfClass BETWEEN "'. date('Y-m-d', strtotime($startDate)). '" and "'. date('Y-m-d', strtotime($endDate)).'"');
         $query = $this->db->get($this->table);
         return $query->result();
     }
