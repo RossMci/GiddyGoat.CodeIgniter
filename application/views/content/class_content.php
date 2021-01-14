@@ -9,6 +9,8 @@ $base_url = base_url();?>
     <!-- end of latest_content_gallery -->
     <div class="content_section">
       <h2>Our Classes</h2>
-      
+
+    <?php echo $calandarHtml."<br/>";
+      ?>
   </div>
 </div>
