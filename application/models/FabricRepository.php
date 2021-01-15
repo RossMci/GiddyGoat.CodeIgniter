@@ -17,14 +17,14 @@ class FabricRepository extends CI_Model
     function getFabricRange($start, $limit)
     {
         $this->db->limit($limit, $start);
-        $this->db->select("name, image");
+        $this->db->select("fabric_id, name, image");
         $query = $this->db->get('fabric');
         return $query->result();
     }
 
     function getFabricsByType($fabricTypeId)
     {
-        $this->db->select("name, image");
+        $this->db->select("fabric_id, name, image");
         $this->db->where("Fabric_Type_Id", $fabricTypeId);
         $query = $this->db->get('fabric');
         return $query->result();
@@ -33,7 +33,7 @@ class FabricRepository extends CI_Model
     function getFabricRangeByType($start, $limit, $fabricTypeId)
     {
         $this->db->limit($limit, $start);
-        $this->db->select("name, image");
+        $this->db->select("fabric_id, name, image");
         $this->db->where("Fabric_Type_Id", $fabricTypeId);
         $query = $this->db->get('fabric');
         return $query->result();

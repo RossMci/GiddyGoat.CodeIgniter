@@ -22,12 +22,24 @@ $base_url = base_url();
         <a href="<?php echo base_url(); ?>index.php/Fabrics">
             <h2> Fabrics details</h2>
         </a>
+        <a href="<?php echo base_url(); ?>index.php/Fabrics">
+            <h2> Back to Fabrics </h2>
+        </a>
         <form action="<?php echo base_url(); ?>index.php/Fabrics/editFabric" method="get">
-                
-        
+        <?php
+          echo '<img  src="' . base_url() .$fabric->image.'" /></br>';
+             echo 'Name:</br>'.$fabric->name.'</br>'; 
+             echo 'description:</br>'.$fabric->description.'</br>';
+             echo 'cost:</br>'.$fabric->cost.'</br>';
+             echo 'primaryColour:</br>'.$fabric->primaryColour.'</br>';
+             echo 'secondaryColour:</br>'.$fabric->secondaryColour.'</br>';
+             echo 'ternaryColour:</br>'.$fabric->ternaryColour.'</br>';
+
+        ?>
+        </br>
               
          
-            <input type="submit" name="submit" value="Search" alt="submit" id="submit_btn" />
+            <input type="submit" name="submit" value="Add to cart" alt="submit" />
         </form>
 
     </div>

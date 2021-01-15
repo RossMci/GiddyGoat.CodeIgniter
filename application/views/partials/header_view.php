@@ -38,7 +38,7 @@ window.addEvents({
       <li><a href="<?php echo site_url('GGHome/index');?>" class="current"><span></span>Home</a></li>
       <li><a href="<?php echo site_url('Classes/index');?>"><span></span>Classes</a></li>
       <li><a href="<?php echo site_url('Fabrics/index');?>"><span></span>Fabrics</a></li>
-      <li><a href="<?php echo site_url('GGHome/notions');?>"><span></span>Notions</a></li>
+      <li><a href="<?php echo site_url('Notions/index');?>"><span></span>Notions</a></li>
       <li><a href="<?php echo site_url('GGHome/gallery');?>"><span></span>Gallery</a></li>
       <li><a href="<?php echo site_url('GGHome/contact');?>"><span></span>Contact</a></li>
     </ul>

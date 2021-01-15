@@ -122,7 +122,8 @@ class Fabrics extends CI_Controller
       $contentData = array(
             'content' => $this->load->view('content/fabricDetails_content', $data, True)
         );
-		$this->load->view('Fabrics', $contentData);
+
+		 $this->load->view('fabrics', $contentData);
         }
     
 
