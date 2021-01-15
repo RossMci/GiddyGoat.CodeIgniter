@@ -4,7 +4,7 @@ $base_url = base_url();
 ?>
 <div id="content">
     <div class="content_section">
-        <h2 style="color: white">our Gallery </h2>
+        <h2 style="color: white">our fabrics </h2>
         <section style="color: white">
             A textile[1] is a flexible material made by creating an interlocking network of yarns or threads, which are produced by spinning raw fibres (from either natural or synthetic sources) into long and twisted lengths.
             [2] Textiles are then formed by weaving,
@@ -30,7 +30,11 @@ $base_url = base_url();
             </select>
             <input type="submit" name="submit" value="Search" alt="submit" id="submit_btn" />
         </form>
+        <a href="<?php echo base_url(); ?>index.php/Fabrics">All Images</a>
+        <!-- <div class="product_box margin_r35"> -->
         <?php echo $imageTable ?>
+        <!-- </div> -->
         <?php echo $this->pagination->create_links(); ?>
+
     </div>
 </div>

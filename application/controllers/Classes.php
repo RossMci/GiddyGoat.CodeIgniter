@@ -34,14 +34,15 @@ class Classes extends CI_Controller
     {
         $this->load->model('ClassRepository');
         $data = array(
-            'classes' => $this->ClassRepository->getClassesByDate($date)
+             'classes' => $this->ClassRepository->getClassesByDate($date)
         );
 
         $contentData = array(
             'content' => $this->load->view('content/classDateView_content', $data, True)
         );
-        $this->load->view('classDateView', $contentData);
-        // $this->load->view('class', $contentData);
+        // var_dump($contentData);
+        // var_dump($data);
+         $this->load->view('classDateView', $contentData);
     }
     public function tableConfig()
     {

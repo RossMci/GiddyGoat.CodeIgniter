@@ -1,10 +1,10 @@
 <?php
-$this->load->helper('url'); 
-$base_url = base_url();?>
-
+$this->load->helper('url');
+$base_url = base_url();
+?>
 <div id="content">
     <div class="content_section">
-        <h2 style="color: white">our fabric </h2>
+        <h2 style="color: white">our fabrics </h2>
         <section style="color: white">
             A textile[1] is a flexible material made by creating an interlocking network of yarns or threads, which are produced by spinning raw fibres (from either natural or synthetic sources) into long and twisted lengths.
             [2] Textiles are then formed by weaving,
@@ -19,17 +19,16 @@ $base_url = base_url();?>
         </section>
     </div>
     <div class="content_section">
-        <h2> Product</h2>
-
-        <h3>name</h3>
-        <p>descrption</p>
-        <p>price</p>
-        <p>stock</p>
-        <label for="meters">Meters:</label>
-        <input type="text" id="meter" name="meter">
-
-        <form action="<?php echo base_url(); ?>index.php/GGHome/Addmember" method="post">
-            <input type="submit" name="submit" value="submit" alt="submit" id="submit_btn" />
+        <a href="<?php echo base_url(); ?>index.php/Fabrics">
+            <h2> Fabrics details</h2>
+        </a>
+        <form action="<?php echo base_url(); ?>index.php/Fabrics/serach" method="get">
+                
+        
+              
+         
+            <input type="submit" name="submit" value="Search" alt="submit" id="submit_btn" />
         </form>
+
     </div>
 </div>

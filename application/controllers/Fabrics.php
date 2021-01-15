@@ -113,25 +113,18 @@ class Fabrics extends CI_Controller
         return $display_block;
     }
 
-    function selectedFabricDisplay()
+    function viewFabric($fabricid)
     {
-        if ($this->input->post('submit')) {
-
-            $data['display_block2'] = "";
-
-            $master_id = $this->input->post('master_id');
-
-            $this->load->model('AddressBook');
-
-
-            $data['display_block2'] = $this->AddressBook->getSelectedContact($master_id);
-            //                    Select all contacts in the addressbook
-            $data['display_block'] = $this->AddressBook->selectContacts();
-
-            //View the selected contacts dropdown            
-            $this->load->view('SelectEntry', $data);
+        $this->load->model('FabricRepository');
+        $data = array(
+            'fabric' => $this->FabricRepository->getFabricById($fabricid)
+        );
+      $contentData = array(
+            'content' => $this->load->view('content/fabrics_content', $data, True)
+        );
+		$this->load->view('Fabrics', $contentData);
         }
-    }
+    
 
     public function serach()
     {
@@ -150,7 +143,7 @@ class Fabrics extends CI_Controller
 
 
         $this->load->library('pagination');
-        $per_page = 3;
+        $per_page = 4;
         $this->pagination->initialize($this->getPaginationConfig($totalRec, $per_page, "index.php/Fabrics/serach/$fabricTypeId/"));
         $page = $this->uri->segment(4);
         $offset = !$page ? 0 : $page;
@@ -188,7 +181,7 @@ class Fabrics extends CI_Controller
         $totalRec = $this->FabricRepository->record_count();
 
         $this->load->library('pagination');
-        $per_page = 6;
+        $per_page = 8;
         $this->pagination->initialize($this->getPaginationConfig($totalRec, $per_page, "index.php/Fabrics/index"));
         $page = $this->uri->segment(3);
         $offset = !$page ? 0 : $page;
@@ -200,7 +193,7 @@ class Fabrics extends CI_Controller
 
         $images = array();
         for ($index = 0; $index < count($thumbnailPaths); $index++) {
-            $image = '<img  src="' . base_url() . $thumbnailPaths[$index] . '" /><br><a href="">' . $fabrics[$index]->name . '<a/>';
+            $image = '<img  src="' . base_url() . $thumbnailPaths[$index] . '" /><br><a href="'.base_url().'index.php/Fabrics/viewFabric">' . $fabrics[$index]->name . '</a>';
             $images[] = $image;
         }
 
