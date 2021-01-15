@@ -120,7 +120,7 @@ class Fabrics extends CI_Controller
             'fabric' => $this->FabricRepository->getFabricById($fabricid)
         );
       $contentData = array(
-            'content' => $this->load->view('content/fabrics_content', $data, True)
+            'content' => $this->load->view('content/fabricDetails_content', $data, True)
         );
 		$this->load->view('Fabrics', $contentData);
         }
@@ -193,8 +193,8 @@ class Fabrics extends CI_Controller
 
         $images = array();
         for ($index = 0; $index < count($thumbnailPaths); $index++) {
-            $image = '<img  src="' . base_url() . $thumbnailPaths[$index] . '" /><br><a href="'.base_url().'index.php/Fabrics/viewFabric">' . $fabrics[$index]->name . '</a>';
-            $images[] = $image;
+            $image = '<img  src="' . base_url() . $thumbnailPaths[$index] . '" /><br><a href="'.base_url().'index.php/Fabrics/viewFabric/'. $fabrics[$index]->fabric_id . '">' . $fabrics[$index]->name . '</a>';
+              $images[] = $image;
         }
 
         $this->load->library('table');

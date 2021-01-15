@@ -22,7 +22,7 @@ $base_url = base_url();
         <a href="<?php echo base_url(); ?>index.php/Fabrics">
             <h2> Fabrics details</h2>
         </a>
-        <form action="<?php echo base_url(); ?>index.php/Fabrics/serach" method="get">
+        <form action="<?php echo base_url(); ?>index.php/Fabrics/editFabric" method="get">
                 
         
               
