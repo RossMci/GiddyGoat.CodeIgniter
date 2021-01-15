@@ -31,3 +31,5 @@ user_guide_src/cilexer/pycilexer.egg-info/*
 /tests/results/
 assets/images/fabrics/thumbnail/
 assets/images/fabrics/*_thumb.jpg
+assets/images/notions/*_thumb.jpg
+assets/images/notions/*_thumb.png
