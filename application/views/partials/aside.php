@@ -8,7 +8,7 @@
 <!--		<form action="<?php // echo base_url(); ?>index.php/GGLogin/index" method="post">-->
 			<?php
 			// checks if the user is logged in and changes the button to show the log out in function if the user is logged in 
-			if ($this->session->userdata('loggedIn'))
+			if ($this->session->userdata('UserId')!= null)
 			{
 				echo '<form action="' . site_url("GGLogin/logout") . '" method="post">
 				     <input type="submit" name="logout" value="logout" alt="submit" id="submit_btn" />

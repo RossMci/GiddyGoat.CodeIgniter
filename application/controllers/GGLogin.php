@@ -18,7 +18,7 @@ class GGLogin extends CI_Controller
 	function index()
 	{
 		//loads the model and controller
-		$this->load->model('UserService');
+
 		//		$this->load->library('../controllers/GGHome');
 		//sets the validation rules
 		$user_validation_rules = array(
@@ -47,15 +47,22 @@ class GGLogin extends CI_Controller
 		if ($this->form_validation->run() == FALSE) {
 			redirect('GGHome/index');
 		} else {
-			// checks if login was entered 
 			if ($this->input->post('Login')) {
-				// checks if the user is valid
-				if ($this->UserService->CheckValidUser() == true) {
-					$this->session->set_userdata('loggedIn', true);
-					redirect('GGHome/index');
+
+				$this->load->model('schema/MemberSchema');
+
+				$emailAddress = $this->input->post($this->MemberSchema->emailAddress);
+				$password = $this->input->post($this->MemberSchema->password);
+				$this->load->model('UserService');
+				$user = $this->UserService->getUserByCredentials($emailAddress, $password);
+
+				if (isset($user)) {
+					$this->session->set_userdata("UserId", $user->member_id);
 				} else {
-					redirect('GGHome/index');
+					// tell jedi of their failure
 				}
+
+				redirect('GGHome/index');
 			}
 		}
 	}
@@ -63,9 +70,7 @@ class GGLogin extends CI_Controller
 	// destorys the session and logout user 
 	function logout()
 	{
-		//		$this->load->library('../controllers/GGHome');
-		// ensets the loggedin value
-		unset($_SESSION['loggedIn']);
+		unset($_SESSION['UserId']);
 		$this->session->sess_destroy();
 		redirect('GGHome/index');
 	}
