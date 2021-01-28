@@ -17,6 +17,8 @@ class GGLogin extends CI_Controller
 	// function checks the member is logined in  and process login
 	function index()
 	{
+		$this->load->model('UserService');
+		$this->load->model('schema/MemberSchema');
 		//loads the model and controller
 
 		//		$this->load->library('../controllers/GGHome');
@@ -48,21 +50,24 @@ class GGLogin extends CI_Controller
 			redirect('GGHome/index');
 		} else {
 			if ($this->input->post('Login')) {
-
-				$this->load->model('schema/MemberSchema');
-
 				$emailAddress = $this->input->post($this->MemberSchema->emailAddress);
 				$password = $this->input->post($this->MemberSchema->password);
-				$this->load->model('UserService');
 				$user = $this->UserService->getUserByCredentials($emailAddress, $password);
 
-				if (isset($user)) {
+				echo "<h1>alert</h1>";
+				echo "<h1>alert</h1>";
+				if ($user!= null) {
 					$this->session->set_userdata("UserId", $user->member_id);
 				} else {
-					// tell jedi of their failure
-				}
+					$vars = array(
+						'content' => $this->load->view('content/main_content', null, True),
+						"error" => "Incorrect login details entered",
+						"emailAddress" => $emailAddress
+					);
+					echo "<h1>alert</h1>";
 
-				redirect('GGHome/index');
+					$this->load->view('Layout', $vars);
+				}
 			}
 		}
 	}
