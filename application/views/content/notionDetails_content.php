@@ -34,7 +34,7 @@ $base_url = base_url(); ?>
             ?>
             </br>
 
-
+            <a href="<?php echo base_url(); ?>index.php/ShoppingCart/addNotion/<?php echo $notion->notion_id; ?>">Add to cart</a>
             <input type="submit" name="submit" value="Add to cart" alt="submit" />
         </form>
 

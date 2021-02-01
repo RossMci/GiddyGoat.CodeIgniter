@@ -33,7 +33,7 @@ class ClassRepository extends CI_Model
 
     function getClassById($classId)
     {
-        $commandText = "CALL getClassById(?)";
+        $commandText = "CALL GetClassById(?)";
 
         $commandParameters = array(
             'Id' => $classId
