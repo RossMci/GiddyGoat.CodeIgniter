@@ -79,18 +79,42 @@ class ShoppingCart extends CI_Controller
     {
         $this->load->model('ShoppingCartRepository');
 
-        $cartValuesArray = array(
-            'session_id' => session_id()
+        $carts = $this->ShoppingCartRepository->GetCartsBySessionId( session_id());
+        $vars = array(
+            'carts' => $carts
         );
-
-        $cart = $this->ShoppingCartRepository->GetByCartsBySessionId($cartValuesArray);
-
         $view_data = array(
-			'content' => $this->load->view('content/ShoppingCart_content', $cart, True)
-		);
+            'content' => $this->load->view('content/ShoppingCart_content', $vars, True)
+        );
+        var_dump(session_id());
 		 $this->load->view('ShoppingCart', $view_data);
     }
-    public function handleCheckout() //displayShoppingcart()
-    {
-    }
+    public function handleCheckOut()
+	{
+        $this->load->model('ShoppingCartRepository');
+        $this->load->model('purchaseService');
+		$cartItems = $this->ShoppingCartRepository->GetCartsBySessionId(Session_Id());
+
+		$purchaseValuesArray = array(
+			"memberId" => 1, //customerNumber
+			// "date" => now()
+		);
+
+		$purchase = $this->purchaseService->addpurchase($purchaseValuesArray);
+		foreach ($cartItems as $cartItem) {
+			$purchaseItemValuesArray = array(
+				"purchaseNumber" => $purchase->purchase_id,
+				"productID" => $cartItem->productId,
+				"Date" => now()
+			);
+			/*$orderItem = */$this->purchaseItemService->addpurchaseItem($purchaseItemValuesArray);
+			//option 1$this->ShoppingCartRepository->deleteShopppingCartById($cartItem->Id);
+		}
+		//options 2
+        $this->ShoppingCartRepository->deleteCartsBySessionId($cartItem->Session_Id);
+        
+        
+        redirect('content/ShoppingCart_content');
+        
+	}
 }
