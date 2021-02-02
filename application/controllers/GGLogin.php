@@ -3,17 +3,6 @@
 class GGLogin extends CI_Controller
 {
 
-	//	function __construct()
-	//	{
-	//		parent::__construct();
-	//		$this->load->library('../controllers/GGHome');
-	//
-	////		if ($this->session->userdata('loggedIn'))
-	////		{
-	////			redirect('GGHome/index');
-	////		}
-	//	}
-
 	// function checks the member is logined in  and process login
 	function index()
 	{
@@ -21,7 +10,6 @@ class GGLogin extends CI_Controller
 		$this->load->model('schema/MemberSchema');
 		//loads the model and controller
 
-		//		$this->load->library('../controllers/GGHome');
 		//sets the validation rules
 		$user_validation_rules = array(
 			array(
