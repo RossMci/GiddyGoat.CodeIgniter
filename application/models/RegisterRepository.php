@@ -1,6 +1,6 @@
 <?php
 
-class AddressBook extends CI_Model
+class RegisterRepository extends CI_Model
 {
    //adds the members too the data base by calling the stored procdure and also collects the values from the forms
 	function addMemberDetails()
@@ -23,30 +23,7 @@ class AddressBook extends CI_Model
 		
 	}
 	
-	function displayFab(){
-		$display_block = "";
-		$stored_proc_call = "CALL getFabrics()";
-		$query = $this->db->query($stored_proc_call);
-		if ($query->num_rows() > 0)
-		{
-			foreach ($query->result_array() as $fabric)
-			{      
-				$id = $fabric['master_id'];
-				$description =$fabric['description'];
-				$image =$fabric['image'];
-				$display_block.="<tr>";
-//				$display_block .= "<td>\"" . $description . "\"<image src=\" . $image . "/""</td>";
-				$display_block.="</tr>";
-			}
-		}
-		else
-		{
-			$display_block .= "<option>No Contacts to Select</option>";
-		}
-		mysqli_next_result($this->db->conn_id);
-		return $display_block;
-	}
-
+	
 	
 }
 ?>

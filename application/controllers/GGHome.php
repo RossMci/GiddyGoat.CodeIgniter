@@ -3,32 +3,7 @@
 class GGHome extends CI_Controller
 {
 
-//	function __construct()
-//	{
-//		parent::__construct();
-//
-////                $this->load->library('form_validation');
-////		$this->form_validation->lo
-////			if ($this->session->userdata('loggedIn'))
-////		{
-////			redirect('GGHome/index');
-////		}
-//	}
-
-//	    // manges the user acess 
-//	public function UserHasAccess()
-//	{
-//		// loads the user in the session 
-//		$user = $this->session->user;
-//		//checks if it null to see if logged in 
-//		if ($user == NULL)
-//		{
-//			$this->load->view('Login');
-//			return false;
-//		}
-//		return true;
-//	}
-
+// these functions are used too load pages through out the website
 	public function index()
 	{
 		/* Load the GiddyGoat Main Page  */
@@ -177,28 +152,16 @@ class GGHome extends CI_Controller
 
 		if ($this->form_validation->run() == FALSE)
 		{
-			//Load the Main Menu view 
 			$this->Register();
 		}
 		else
 		{
-//			$this->load->model('AddressBook');  //Loads the AddressBook  Model  
 
-			$this->AddressBook->addMemberDetails();
-			//Reload the main menu 
+			$this->RegisterRepository->addMemberDetails();
+	
 
 			$this->index();
 		}
-	}
-	
-	function displayFabrics(){
-            $view_data = array(
-			'content' => $this->load->view('content/fabrics_content', null, True)
-//			'Classes'=>$this->load->view('Classes.php',null,True)
-		);
-		$this->load->view('fabrics', $view_data);
-		$data['display_block'] = $this->AddressBook->displayFab();
-		$this->fabrics($data);
 	}
 
 }

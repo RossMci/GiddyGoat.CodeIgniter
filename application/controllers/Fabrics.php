@@ -4,6 +4,8 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Fabrics extends CI_Controller
 {
+
+    // genrates the fabric thumbnails that used in the fabric table
     public function generateFabricThumbnails($fabrics)
     {
         $this->load->library('image_lib');
@@ -22,6 +24,7 @@ class Fabrics extends CI_Controller
         }
         return $this->getFabricThumbnailPaths($fabrics);
     }
+    // gets the paths for the thumbnails
     public function getFabricThumbnailPaths($fabrics)
     {
         $thumbnailPaths = array();
@@ -34,6 +37,7 @@ class Fabrics extends CI_Controller
         return $thumbnailPaths;
     }
 
+    // configures the pagination used on the fabric page 
     public function getPaginationConfig($total_rows, $per_page, $pageUri)
     {
         $config['base_url'] = base_url() . $pageUri;
@@ -91,6 +95,7 @@ class Fabrics extends CI_Controller
 
         return $config;
     }
+    // gets the fabric types to be used in the serach function
     public function getFabricTypes()
     {
 
@@ -112,7 +117,7 @@ class Fabrics extends CI_Controller
         // echo $display_block;
         return $display_block;
     }
-
+// loads the clicked fabric 
     function viewFabric($fabricid)
     {
         $this->load->model('FabricRepository');
@@ -126,7 +131,7 @@ class Fabrics extends CI_Controller
 		 $this->load->view('fabrics', $contentData);
         }
     
-
+  // used to serach for the fabric types you want
     public function serach()
     {
         $fabricTypeId = $this->input->get('fabricTypeId');
@@ -176,6 +181,7 @@ class Fabrics extends CI_Controller
         $this->load->view('fabrics', $contentData);
     }
 
+// loads the fabric view intaily 
     public function index()
     {
         $this->load->model('FabricRepository');

@@ -5,6 +5,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 class Classes extends CI_Controller
 {
 
+    // creates the data array that used for the calander 
     public function createCalandarDataArray($classes)
     {
         $calandarData = array();
@@ -15,12 +16,13 @@ class Classes extends CI_Controller
         return $calandarData;
     }
 
+     // gets this months classses for the calander which shows only the month your in
     public function getClassesForThisMonth()
     {
         $today =  date('Y-m-d');
         return $this->getClassesForMonth($today);
     }
-
+// gets the classes for this month from start too end
     public function getClassesForMonth($date)
     {
         $startDate =  date('Y-m', strtotime($date)) . "-1";
@@ -30,6 +32,7 @@ class Classes extends CI_Controller
         $this->load->model('ClassRepository');
         return  $this->ClassRepository->getClassesBetweenDates($startDate, $endDate);
     }
+    // gets the class in the calander you was to view and displays it 
     public function viewdate($date)
     {
         $this->load->model('ClassRepository');
@@ -44,6 +47,7 @@ class Classes extends CI_Controller
         // var_dump($data);
          $this->load->view('classDateView', $contentData);
     }
+   // this configs the calander table
     public function tableConfig()
     {
         $prefs['template'] = '
@@ -86,6 +90,7 @@ class Classes extends CI_Controller
 ';
         return $prefs;
     }
+    // this loads the calander on the classes page before the details of the class you pick 
     public function index()
     {
         $classes = $this->getClassesForThisMonth();
