@@ -49,7 +49,7 @@ class GGLogin extends CI_Controller
 				// echo "<h1>alert</h1>";
 				// echo "<h1>alert</h1>";
 				if ($user!= null) {
-					$this->session->set_userdata("UserId", $user->member_id);
+					$this->session->set_userdata("UserId", $user->member_id,true);
 					redirect('GGHome/index');
 				} else {
 					$vars = array(

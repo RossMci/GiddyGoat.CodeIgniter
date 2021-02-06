@@ -7,11 +7,13 @@ class ShoppingCart extends CI_Controller
     // manges the user acess 
     public function UserHasAccess()
     {
+        $this->load->library('session');
         // loads the user in the session 
         $user = $this->session->user;
+        // $user = session_id();
         //checks if it null to see if logged in 
-        if ($user == NULL) {
-
+        // if ($user == NULL) {
+          if ( $this->session->userdata('UserId') == false){
             $view_data = array(
                 'content' => $this->load->view('content/main_content', null, True),
                 "error" => "Please login"
@@ -28,6 +30,7 @@ class ShoppingCart extends CI_Controller
     // adds the fabric detials too the cart 
     public function AddFabric(int $fabricId)
     {
+
         $this->load->model('FabricRepository');
         $this->load->model('ShoppingCartRepository');
         var_dump($_POST);
@@ -47,10 +50,9 @@ class ShoppingCart extends CI_Controller
 
         $this->ShoppingCartRepository->addCart($cartValuesArray);
 
-        //TODO redirect Shoppingcart/index
         redirect(site_url('ShoppingCart/index'));
     }
-        // adds the Notion detials too the cart 
+    // adds the Notion detials too the cart 
     public function addNotion(int $notionId)
     {
         $this->load->model('NotionsRepository');
@@ -71,11 +73,10 @@ class ShoppingCart extends CI_Controller
 
         $this->ShoppingCartRepository->addCart($cartValuesArray);
 
-        //TODO redirect Shoppingcart/index
         redirect(site_url('ShoppingCart/index'));
     }
 
-        // adds the Class detials too the cart  and books a class
+    // adds the Class detials too the cart  and books a class
     public function addClass(int $classId)
     {
         $this->load->model('ClassRepository');
@@ -103,7 +104,6 @@ class ShoppingCart extends CI_Controller
         $this->ClassRepository->BookClass($BookValuesArray);
         $this->ShoppingCartRepository->addCart($cartValuesArray);
 
-        //TODO redirect Shoppingcart/index
         redirect(site_url('ShoppingCart/index'));
     }
     // handles the books when checked out to keep track if its been paid for.
@@ -119,19 +119,19 @@ class ShoppingCart extends CI_Controller
     {
         if (!$this->UserHasAccess()) {
             return;
-        }else{
-        $this->load->model('ShoppingCartRepository');
+        } else {
+            $this->load->model('ShoppingCartRepository');
 
-        $carts = $this->ShoppingCartRepository->GetCartsBySessionId(session_id());
-        $vars = array(
-            'carts' => $carts
-        );
-        $view_data = array(
-            'content' => $this->load->view('content/ShoppingCart_content', $vars, True)
-        );
-        var_dump(session_id());
-        $this->load->view('ShoppingCart', $view_data);
-    }
+            $carts = $this->ShoppingCartRepository->GetCartsBySessionId(session_id());
+            $vars = array(
+                'carts' => $carts
+            );
+            $view_data = array(
+                'content' => $this->load->view('content/ShoppingCart_content', $vars, True)
+            );
+            // var_dump(session_id());
+            $this->load->view('ShoppingCart', $view_data);
+        }
     }
     // handles the cart item customer wishs too buy them.
     public function handleCheckOut()
@@ -181,7 +181,7 @@ class ShoppingCart extends CI_Controller
             redirect(site_url('ShoppingCart/index'));
         }
     }
-// removes one item from cart.
+    // removes one item from cart.
     function RemoveCartItem($id)
     {
         $this->load->model('ShoppingCartRepository');

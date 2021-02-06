@@ -50,7 +50,7 @@ $base_url = base_url(); ?>
         ';
       }
       ?>
-      <?php if ($this->session->userdata('UserId') == null) {
+      <?php if ($this->session->userdata('UserId') == true) {
         echo '<input type="submit" name="submit" value="Check Out" alt="submit" />';
       } else {
         echo '<p>you must be logged in too check out</p>';
