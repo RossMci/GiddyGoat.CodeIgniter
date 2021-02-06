@@ -44,9 +44,9 @@ a hotel with class
          echo '</br>';
          echo 'MaxAttendees: '.$class->maxAttendees;
          echo '</br>';
-         echo anchor('cart/viewcart/'.$class->class_id,'<h3>Add To Cart</h3>');
+         echo anchor('ShoppingCart/addClass/'. $class->class_id ,'<h3>Book Class</h3>');
        
       } ?>
-
+<!-- cart/viewcart/'.$class->class_id -->
   </div>
 </div>

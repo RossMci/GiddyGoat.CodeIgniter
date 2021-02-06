@@ -35,24 +35,29 @@ class GGLogin extends CI_Controller
 
 		$this->form_validation->set_rules($user_validation_rules);
 		if ($this->form_validation->run() == FALSE) {
-			redirect('GGHome/index');
+			// redirect('GGHome/index');
+			$view_data = array(
+				'content' => $this->load->view('content/main_content', null, True)
+			);
+			$this->load->view('Layout', $view_data);
 		} else {
 			if ($this->input->post('Login')) {
 				$emailAddress = $this->input->post($this->MemberSchema->emailAddress);
 				$password = $this->input->post($this->MemberSchema->password);
 				$user = $this->UserService->getUserByCredentials($emailAddress, $password);
 
-				echo "<h1>alert</h1>";
-				echo "<h1>alert</h1>";
+				// echo "<h1>alert</h1>";
+				// echo "<h1>alert</h1>";
 				if ($user!= null) {
 					$this->session->set_userdata("UserId", $user->member_id);
+					redirect('GGHome/index');
 				} else {
 					$vars = array(
 						'content' => $this->load->view('content/main_content', null, True),
 						"error" => "Incorrect login details entered",
 						"emailAddress" => $emailAddress
 					);
-					echo "<h1>alert</h1>";
+					// echo "<h1>alert</h1>";
 
 					$this->load->view('Layout', $vars);
 				}

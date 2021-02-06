@@ -4,13 +4,35 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class ShoppingCart extends CI_Controller
 {
+    // manges the user acess 
+    public function UserHasAccess()
+    {
+        // loads the user in the session 
+        $user = $this->session->user;
+        //checks if it null to see if logged in 
+        if ($user == NULL) {
+
+            $view_data = array(
+                'content' => $this->load->view('content/main_content', null, True),
+                "error" => "Please login"
+            );
+
+            $this->load->view('Layout', $view_data);
+            // $error= 'alert("Hello! I am an alert box!!")';
+            // redirect(site_url('GGHome/index'));
+            // $error= 'alert("Hello! I am an alert box!!")';
+            return false;
+        }
+        return true;
+    }
     //to do addNotion , AddClass
     public function AddFabric(int $fabricId)
     {
         $this->load->model('FabricRepository');
         $this->load->model('ShoppingCartRepository');
+        var_dump($_POST);
+        $quantity = $this->input->post('quantity');
         $fabric = $this->FabricRepository->getFabricById($fabricId);
-
         $cartValuesArray = array(
             'session_id' => session_id(),
             'notion_id' => null,
@@ -18,7 +40,7 @@ class ShoppingCart extends CI_Controller
             'class_id' => null,
             'product_name' => $fabric->name,
             'product_desc' => $fabric->description,
-            'quantity' => 1,
+            'quantity' => $quantity,
             'price' => $fabric->cost,
             'image_path' => $fabric->image
         );
@@ -56,7 +78,7 @@ class ShoppingCart extends CI_Controller
         $this->load->model('ClassRepository');
         $this->load->model('ShoppingCartRepository');
         $class = $this->ClassRepository->getClassById($classId);
-
+        var_dump($class);
         $cartValuesArray = array(
             'session_id' => session_id(),
             'notion_id' => null,
@@ -65,18 +87,35 @@ class ShoppingCart extends CI_Controller
             'product_name' => $class->name,
             'product_desc' => $class->description,
             'quantity' => 1,
-            'price' => $class->cost,
-            'image_path' => $class->image
+            'price' => $class->price,
+            'image_path' => "assets/images/classes/classes.jpg"
         );
+        $BookValuesArray = array(
+            'class_id' => $class->class_id,
+            'member_id' =>  $this->session->userdata("UserId"),
+            'paidInFull' => 'n',
+            'price' => $class->price,
 
+        );
+        $this->ClassRepository->BookClass($BookValuesArray);
         $this->ShoppingCartRepository->addCart($cartValuesArray);
 
         //TODO redirect Shoppingcart/index
         redirect(site_url('ShoppingCart/index'));
     }
-
+    function CheckoutBookedClass($classId)
+    {
+        $class = $this->ClassRepository->getClassById($classId);
+        $CheckoutBookValuesArray = array(
+            'paidInFull' => 'Y'
+        );
+        $this->ClassRepository->CheckoutBookedClass($CheckoutBookValuesArray);
+    }
     public function index() //displayShoppingcart()
     {
+        if (!$this->UserHasAccess()) {
+            return;
+        }else{
         $this->load->model('ShoppingCartRepository');
 
         $carts = $this->ShoppingCartRepository->GetCartsBySessionId(session_id());
@@ -89,36 +128,59 @@ class ShoppingCart extends CI_Controller
         var_dump(session_id());
         $this->load->view('ShoppingCart', $view_data);
     }
+    }
     public function handleCheckOut()
     {
         $this->load->model('ShoppingCartRepository');
         $this->load->model('purchaseService');
         $this->load->model('purchaseItemService');
-        $cartItems = $this->ShoppingCartRepository->GetCartsBySessionId(Session_Id());
+        $this->load->model('ClassRepository');
+        if (!$this->UserHasAccess()) {
+            return;
+        } else {
 
-        $purchaseValuesArray = array(
-            "memberId" => $this->session->userdata("UserId")
-        );
 
-        $purchase = $this->purchaseService->addpurchase($purchaseValuesArray);
-        foreach ($cartItems as $cartItem) {
-            $purchaseItemValuesArray = array(
-                "purchase_id" => $purchase->purchase_id,
-                "class_id" => $cartItem->class_id,
-                "fabric_id" => $cartItem->fabric_id,
-                "notion_id" => $cartItem->notion_id,
-                "qty" => $cartItem->quantity,
-                "cost" => $cartItem->price
+            $cartItems = $this->ShoppingCartRepository->GetCartsBySessionId(Session_Id());
+
+            $purchaseValuesArray = array(
+                "memberId" => $this->session->userdata("UserId")
             );
-            /*$orderItem = */
-            $this->purchaseItemService->addpurchaseItem($purchaseItemValuesArray);
-            //option 1$this->ShoppingCartRepository->deleteShopppingCartById($cartItem->Id);
-        }
-        //options 2
-        $this->ShoppingCartRepository->deleteCartsBySessionId(Session_Id());
 
-        redirect('purchases/' . $purchase->purchase_id);
-        //TODO Correct way
-        //redirect('purchases/' . $purchase->purchase_id);
+            $purchase = $this->purchaseService->addpurchase($purchaseValuesArray);
+            foreach ($cartItems as $cartItem) {
+                $purchaseItemValuesArray = array(
+                    "purchase_id" => $purchase->purchase_id,
+                    "class_id" => $cartItem->class_id,
+                    "fabric_id" => $cartItem->fabric_id,
+                    "notion_id" => $cartItem->notion_id,
+                    "qty" => $cartItem->quantity,
+                    "cost" => $cartItem->price,
+                );
+                $CheckoutBookValuesArray = array(
+                    "class_id" => $cartItem->class_id,
+                    "memberId" => $this->session->userdata("UserId"),
+                    "paidInFull" => 'Y'
+                );
+
+                /*$orderItem = */
+                $this->ClassRepository->CheckoutBookedClass($CheckoutBookValuesArray);
+                $this->purchaseItemService->addpurchaseItem($purchaseItemValuesArray);
+                //option 1$this->ShoppingCartRepository->deleteShopppingCartById($cartItem->Id);
+            }
+            //options 2
+            $this->ShoppingCartRepository->deleteCartsBySessionId(Session_Id());
+
+            // redirect('purchases/' . $purchase->purchase_id);
+            //TODO Correct way
+            //redirect('purchases/' . $purchase->purchase_id);
+            redirect(site_url('ShoppingCart/index'));
+        }
+    }
+
+    function RemoveCartItem($id)
+    {
+        $this->load->model('ShoppingCartRepository');
+        $this->ShoppingCartRepository->RemoveCartItem($id);
+        redirect(site_url('ShoppingCart/index'));
     }
 }

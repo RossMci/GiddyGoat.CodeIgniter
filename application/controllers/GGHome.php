@@ -132,8 +132,11 @@ class GGHome extends CI_Controller
 				'errors' => array('required' => 'You must provide an %s.')),
 			array('field' => 'emailAddress',
 				'label' => 'email Address',
-				'rules' => 'required',
-				'errors' => array('required' => 'You must provide an %s.')),
+				'rules' => 'required|valid_email',
+				'errors' => array(
+					'required' => 'You must provide an %s.',
+					'valid_email'=>'you must provide a valid %s' 
+			)),
 			array('field' => 'addressLine1',
 				'label' => 'address Line 1',
 				'rules' => 'required',
@@ -199,5 +202,3 @@ class GGHome extends CI_Controller
 	}
 
 }
-
-?>

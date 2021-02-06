@@ -11,6 +11,7 @@
 		// checks if the user is logged in and changes the button to show the log out in function if the user is logged in 
 		if ($this->session->userdata('UserId') != null) {
 			echo '<form action="' . site_url("GGLogin/logout") . '" method="post">
+			          <h3> Hi your logined in</h3>
 				     <input type="submit" name="logout" value="logout" alt="submit" id="submit_btn" />
 				      </form>';
 		} else {
@@ -18,9 +19,12 @@
 			echo
 			'<form action="' . site_url("GGLogin/index") . '" method="post">
 				<label>Username</label>
-			     <input type="text" name="emailAddress" size="10" class="input_field" ' . $usernameValue . '/>
-			     <label>Password</label>
-			      <input type="password" value="" name="password" class="input_field" />	
+				 <input type="text" name="emailAddress" size="10" class="input_field" ' . $usernameValue . '/>';
+				 echo form_error('emailAddress');
+				 echo '<label>Password</label>
+				 <input type="password" value="" name="password" class="input_field" />	';
+				 echo form_error('password');
+				 echo'
 			       <input type="submit" name="Login" value="Login" alt="submit" id="submit_btn" />
 				   	<a href="' . site_url('GGHome/Register') . '">Register</a> 
 						</form>';

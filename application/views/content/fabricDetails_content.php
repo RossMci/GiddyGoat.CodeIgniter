@@ -25,20 +25,21 @@ $base_url = base_url();
         <a href="<?php echo base_url(); ?>index.php/Fabrics">
             <h2> Back to Fabrics </h2>
         </a>
-        <form action="<?php echo base_url(); ?>index.php/Fabrics/editFabric" method="get">
-        <?php
-          echo '<img  src="' . base_url() .$fabric->image.'" /></br>';
-             echo 'Name:</br>'.$fabric->name.'</br>'; 
-             echo 'description:</br>'.$fabric->description.'</br>';
-             echo 'cost:</br>'.$fabric->cost.'</br>';
-             echo 'primaryColour:</br>'.$fabric->primaryColour.'</br>';
-             echo 'secondaryColour:</br>'.$fabric->secondaryColour.'</br>';
-             echo 'ternaryColour:</br>'.$fabric->ternaryColour.'</br>';
+        <form action="<?php echo base_url(); ?>index.php/ShoppingCart/AddFabric/<?php echo $fabric->fabric_id; ?>"  method="post">
+        <!-- method="get" -->
+            <?php
+            echo '<img  src="' . base_url() . $fabric->image . '" /></br>';
+            echo 'Name:</br>' . $fabric->name . '</br>';
+            echo 'description:</br>' . $fabric->description . '</br>';
+            echo 'cost:</br>' . $fabric->cost . '</br>';
+            echo 'primaryColour:</br>' . $fabric->primaryColour . '</br>';
+            echo 'secondaryColour:</br>' . $fabric->secondaryColour . '</br>';
+            echo 'ternaryColour:</br>' . $fabric->ternaryColour . '</br>';
 
-        ?>
-        </br>
-              
-         <a href="<?php echo base_url(); ?>index.php/ShoppingCart/AddFabric/<?php echo $fabric->fabric_id; ?>">Add to cart</a>
+            ?>
+            <label for="quantity">quantity</label>
+            <input type="number" min=1 oninput="validity.valid||(value='');" id="quantity" name="quantity" value="1"><br><br>
+            </br>   
             <input type="submit" name="submit" value="Add to cart" alt="submit" />
         </form>
 

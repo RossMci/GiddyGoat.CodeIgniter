@@ -40,4 +40,11 @@ class ShoppingCartRepository extends CI_Model
         $query = $this->db->query($commandText, $Session_Id);
         return $query;
     }
+
+    function RemoveCartItem($id){
+        mysqli_next_result($this->db->conn_id);
+        $commandText = "CALL RemoveFromCart(?)";
+        $query = $this->db->query($commandText, $id);
+        return $query;
+    }
 }
