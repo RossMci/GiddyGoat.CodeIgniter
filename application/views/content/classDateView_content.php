@@ -23,7 +23,7 @@ a hotel with class
   </section>
 
     </div>
-    <!-- end of latest_content_gallery -->
+    <!-- class Details view -->
     <div class="content_section">
       <h1>Our Classes</h1>
       <a href="<?php echo base_url(); ?>index.php/Classes">

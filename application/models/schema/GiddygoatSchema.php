@@ -1,6 +1,6 @@
 <?php
 defined('BASEPATH') || exit('No direct script access allowed');
-
+// gets all the fields and tables that are in the database that can be used in the program
 class GiddygoatSchema extends CI_Model
 {
 	public string $Class = "Class";

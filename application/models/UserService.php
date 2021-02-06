@@ -28,6 +28,7 @@ public function __construct()
 			}
 		}
 	}
+	// gets the user by the getUserByCredentials
 	public function getUserByCredentials($emailAddress, $password)
 	{
 		$parameters = array(

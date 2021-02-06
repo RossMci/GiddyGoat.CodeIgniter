@@ -6,6 +6,6 @@ class purchaseRepository extends CI_Model
 
  function index(){
 
-
+  //used for list of purchases in th future
  }
 }

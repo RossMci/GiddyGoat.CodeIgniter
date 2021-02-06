@@ -2,6 +2,7 @@
 $this->load->helper('url');
 $base_url = base_url(); ?>
 <div id="content">
+    <!-- displays the selected notion detials -->
     <div id="latest_product_gallery" style="color: white">
         <h2>our notions</h2>
         1a(1): an individual's conception or impression of something known, experienced, or imagined

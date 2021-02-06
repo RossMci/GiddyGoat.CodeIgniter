@@ -1,7 +1,7 @@
 <?php
 
 defined('BASEPATH') or exit('No direct script access allowed');
-
+// handles the shopping cart in the program
 class ShoppingCart extends CI_Controller
 {
     // manges the user acess 
@@ -25,7 +25,7 @@ class ShoppingCart extends CI_Controller
         }
         return true;
     }
-    //to do addNotion , AddClass
+    // adds the fabric detials too the cart 
     public function AddFabric(int $fabricId)
     {
         $this->load->model('FabricRepository');
@@ -50,6 +50,7 @@ class ShoppingCart extends CI_Controller
         //TODO redirect Shoppingcart/index
         redirect(site_url('ShoppingCart/index'));
     }
+        // adds the Notion detials too the cart 
     public function addNotion(int $notionId)
     {
         $this->load->model('NotionsRepository');
@@ -73,6 +74,8 @@ class ShoppingCart extends CI_Controller
         //TODO redirect Shoppingcart/index
         redirect(site_url('ShoppingCart/index'));
     }
+
+        // adds the Class detials too the cart  and books a class
     public function addClass(int $classId)
     {
         $this->load->model('ClassRepository');
@@ -103,6 +106,7 @@ class ShoppingCart extends CI_Controller
         //TODO redirect Shoppingcart/index
         redirect(site_url('ShoppingCart/index'));
     }
+    // handles the books when checked out to keep track if its been paid for.
     function CheckoutBookedClass($classId)
     {
         $class = $this->ClassRepository->getClassById($classId);
@@ -111,7 +115,7 @@ class ShoppingCart extends CI_Controller
         );
         $this->ClassRepository->CheckoutBookedClass($CheckoutBookValuesArray);
     }
-    public function index() //displayShoppingcart()
+    public function index() //displayShoppingcars the shopping cart 
     {
         if (!$this->UserHasAccess()) {
             return;
@@ -129,6 +133,7 @@ class ShoppingCart extends CI_Controller
         $this->load->view('ShoppingCart', $view_data);
     }
     }
+    // handles the cart item customer wishs too buy them.
     public function handleCheckOut()
     {
         $this->load->model('ShoppingCartRepository');
@@ -176,7 +181,7 @@ class ShoppingCart extends CI_Controller
             redirect(site_url('ShoppingCart/index'));
         }
     }
-
+// removes one item from cart.
     function RemoveCartItem($id)
     {
         $this->load->model('ShoppingCartRepository');

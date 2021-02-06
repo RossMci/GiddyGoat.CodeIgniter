@@ -4,6 +4,7 @@ class purchaseService extends CI_Model
 {
     protected $table = 'purchase'; 
 
+    // used to add purchase too the database 
  function addpurchase($purchaseValuesArray){
     mysqli_next_result($this->db->conn_id);
     $commandText = "CALL add_purchase(?)";

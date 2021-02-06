@@ -1,6 +1,7 @@
 <?php
 $this->load->helper('url'); 
 $base_url = base_url();?>
+<!-- contact page view  -->
 <div id="content">
     <div id="latest_product_gallery">
       <h2>our contact</h2>

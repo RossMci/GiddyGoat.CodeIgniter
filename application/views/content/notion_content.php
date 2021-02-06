@@ -1,6 +1,7 @@
 <?php
 $this->load->helper('url');
 $base_url = base_url(); ?>
+<!-- Displays the notion page  -->
 <div id="content">
   <div id="latest_product_gallery" style="color: white">
     <h2>our notions</h2>
@@ -17,12 +18,12 @@ $base_url = base_url(); ?>
     3notions plural : small useful items : SUNDRIES
     found the thread she wanted among the shop's notions
   </div>
-  <!-- end of latest_content_gallery -->
+  
   <div class="content_section">
     <a href="<?php echo base_url(); ?>index.php/Notions">
       <h2> Notions</h2>
     </a>
-    <form action="<?php echo base_url(); ?>index.php/Notions/serach" method="get">
+    <form action="<?php echo base_url(); ?>index.php/Notions/search" method="get">
       <select name="notionTypeId">
         <?php foreach ($notionTypes as $notionType) {
           echo "<option value=\"" . $notionType->notion_type_id . "\">" . stripslashes($notionType->notionTypeName) . "</option>";

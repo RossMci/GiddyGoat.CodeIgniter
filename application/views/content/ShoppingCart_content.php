@@ -2,11 +2,11 @@
 $this->load->helper('url');
 $base_url = base_url(); ?>
 <div id="content">
+<!-- displays the contents of the shopping cart  -->
   <div id="latest_product_gallery">
     <h2>Cart</h2>
 
   </div>
-  <!-- end of latest_content_gallery -->
   <div class="content_section">
     <h2>Shopping Cart</h2>
     <!-- <input onClick="window.location.href='<?php //echo base_url(); 

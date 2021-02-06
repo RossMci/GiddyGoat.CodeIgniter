@@ -2,6 +2,7 @@
 $this->load->helper('url');
 $base_url = base_url();
 ?>
+<!-- detials of selected fabric -->
 <div id="content">
     <div class="content_section">
         <h2 style="color: white">our fabrics </h2>

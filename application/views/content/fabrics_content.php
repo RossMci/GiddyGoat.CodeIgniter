@@ -1,7 +1,9 @@
 <?php
+
 $this->load->helper('url');
 $base_url = base_url();
 ?>
+<!-- display page for all fabrics -->
 <div id="content">
     <div class="content_section">
         <h2 style="color: white">our fabrics </h2>
@@ -22,7 +24,7 @@ $base_url = base_url();
         <a href="<?php echo base_url(); ?>index.php/Fabrics">
             <h2> Fabrics</h2>
         </a>
-        <form action="<?php echo base_url(); ?>index.php/Fabrics/serach" method="get">
+        <form action="<?php echo base_url(); ?>index.php/Fabrics/search" method="get">
             <select name="fabricTypeId">
                 <?php foreach ($fabricTypes as $fabricType) {
                     echo "<option value=\"" . $fabricType->fabric_type_id . "\">" . stripslashes($fabricType->fabricTypeName) . "</option>";

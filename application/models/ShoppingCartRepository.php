@@ -5,7 +5,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 class ShoppingCartRepository extends CI_Model
 {
     //protected $table = 'shopping_cart';
-
+  // add items too the cart 
     public function addCart($cartValuesArray)
     {
         mysqli_next_result($this->db->conn_id);
@@ -17,7 +17,7 @@ class ShoppingCartRepository extends CI_Model
             return null;
         }
     }
-    //TODO GetByCartsBySeesionId
+    // gets the carts by id
     function GetCartById($id)
     {
         mysqli_next_result($this->db->conn_id);
@@ -25,6 +25,7 @@ class ShoppingCartRepository extends CI_Model
         $query = $this->db->query($commandText, $id);
         return $query->result();
     }
+    //gets the carts by sessionId
     function GetCartsBySessionId($sessionId)
     {
         mysqli_next_result($this->db->conn_id);
@@ -32,7 +33,7 @@ class ShoppingCartRepository extends CI_Model
         $query = $this->db->query($commandText, $sessionId);
         return $query->result();
     }
-
+   // deletes carts items 
     function deleteCartsBySessionId($Session_Id)
     {
         mysqli_next_result($this->db->conn_id);
@@ -40,7 +41,7 @@ class ShoppingCartRepository extends CI_Model
         $query = $this->db->query($commandText, $Session_Id);
         return $query;
     }
-
+     // deltes selected cart item
     function RemoveCartItem($id){
         mysqli_next_result($this->db->conn_id);
         $commandText = "CALL RemoveFromCart(?)";

@@ -95,7 +95,7 @@ class Fabrics extends CI_Controller
 
         return $config;
     }
-    // gets the fabric types to be used in the serach function
+    // gets the fabric types to be used in the search function
     public function getFabricTypes()
     {
 
@@ -131,8 +131,8 @@ class Fabrics extends CI_Controller
 		 $this->load->view('fabrics', $contentData);
         }
     
-  // used to serach for the fabric types you want
-    public function serach()
+  // used to search for the fabric types you want
+    public function search()
     {
         $fabricTypeId = $this->input->get('fabricTypeId');
 
@@ -150,7 +150,7 @@ class Fabrics extends CI_Controller
 
         $this->load->library('pagination');
         $per_page = 4;
-        $this->pagination->initialize($this->getPaginationConfig($totalRec, $per_page, "index.php/Fabrics/serach/$fabricTypeId/"));
+        $this->pagination->initialize($this->getPaginationConfig($totalRec, $per_page, "index.php/Fabrics/search/$fabricTypeId/"));
         $page = $this->uri->segment(4);
         $offset = !$page ? 0 : $page;
 
@@ -181,7 +181,7 @@ class Fabrics extends CI_Controller
         $this->load->view('fabrics', $contentData);
     }
 
-// loads the fabric view intaily 
+// loads the fabric view for the first time and it contents 
     public function index()
     {
         $this->load->model('FabricRepository');

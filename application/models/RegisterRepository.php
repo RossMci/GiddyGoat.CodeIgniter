@@ -21,10 +21,5 @@ class RegisterRepository extends CI_Model
 		$this->db->query($stored_proc_call, $member_data);
 
 		
-	}
-	
-	
-	
+	}	
 }
-?>
-

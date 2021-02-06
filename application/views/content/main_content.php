@@ -19,7 +19,7 @@ $base_url = base_url();?>
         </div>
       </div>
     </div>
-    <!-- end of latest_content_gallery -->
+    <!-- displays the home page of the website -->
     <div class="content_section">
       <h2>Welcome to Giddy Goat Patchwork</h2>
       <p>Fun adults & children's weekly sewing / patchwork/quilting classes! We stock beautiful fabric and other sewing needs. Suitable for all levels of ability.</p>

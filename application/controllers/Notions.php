@@ -4,6 +4,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Notions extends CI_Controller
 {
+    // genrates Notion Thumbnails for the notions page 
     public function generateNotionsThumbnails($Notions)
     {
         $this->load->library('image_lib');
@@ -22,6 +23,7 @@ class Notions extends CI_Controller
         }
         return $this->getNotionsThumbnailPaths($Notions);
     }
+    // gats the paths for the notions 
     public function getNotionsThumbnailPaths($Notions)
     {
         $thumbnailPaths = array();
@@ -33,7 +35,7 @@ class Notions extends CI_Controller
         }
         return $thumbnailPaths;
     }
-
+     // configures the pagination
     public function getPaginationConfig($total_rows, $per_page, $pageUri)
     {
         $config['base_url'] = base_url() . $pageUri;
@@ -91,6 +93,7 @@ class Notions extends CI_Controller
 
         return $config;
     }
+    //gets the notion types from the data base and displays in notion type drop down
     public function getNotionsTypes()
     {
 
@@ -112,7 +115,7 @@ class Notions extends CI_Controller
         // echo $display_block;
         return $display_block;
     }
-
+    // shows the notion thats been clicked and shows details page  
     function viewNotions($notionid)
     {
         $this->load->model('NotionsRepository');
@@ -127,7 +130,8 @@ class Notions extends CI_Controller
         }
     
 
-    public function serach()
+ // carrys out the search when user clicks search
+        public function search()
     {
         $notionTypeId = $this->input->get('notionTypeId');
 
@@ -145,7 +149,7 @@ class Notions extends CI_Controller
 
         $this->load->library('pagination');
         $per_page = 4;
-        $this->pagination->initialize($this->getPaginationConfig($totalRec, $per_page, "index.php/Notions/serach/$notionTypeId/"));
+        $this->pagination->initialize($this->getPaginationConfig($totalRec, $per_page, "index.php/Notions/search/$notionTypeId/"));
         $page = $this->uri->segment(4);
         $offset = !$page ? 0 : $page;
 
@@ -175,7 +179,7 @@ class Notions extends CI_Controller
         );
         $this->load->view('notions', $contentData);
     }
-
+//loads the notions main page
     public function index()
     {
         $this->load->model('NotionsRepository');
